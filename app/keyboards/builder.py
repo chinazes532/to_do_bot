@@ -33,10 +33,9 @@ async def user_tasks(user_id):
 async def user_tasks_by_keywords(user_id, task_ids):
     kb = InlineKeyboardBuilder()
 
-    # Получаем задачи по переданным идентификаторам
-    tasks = await get_tasks_by_ids(task_ids)  # Предполагается, что эта функция реализована
+    tasks = await get_tasks_by_ids(task_ids)
     for task in tasks:
-        if task[3] == 0:  # Предполагаем, что task[3] - это статус задачи
+        if task[3] == 0:
             kb.row(InlineKeyboardButton(text=f"{task[2]} 🚫", callback_data=f"task_{task[0]}"))
         else:
             kb.row(InlineKeyboardButton(text=f"{task[2]} ✅", callback_data=f"task_{task[0]}"))
@@ -44,7 +43,6 @@ async def user_tasks_by_keywords(user_id, task_ids):
     kb.row(InlineKeyboardButton(text="Назад", callback_data="cancel"))
 
     return kb.as_markup()
-
 
 
 async def task_panel(task_id):
